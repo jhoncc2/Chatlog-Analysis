@@ -112,18 +112,7 @@ ChExamples >> jsonThreeMessages [
 { #category : #csv }
 ChExamples >> threeAnalyzedMessages [
 	<gtExample>
-	^ (NeoCSVReader on: self csvThreeAnalyzedMessages readStream)
-		recordClass: ChAnalizedMessage;
-		skipHeader;
-		addIntegerField: #conversationId: ;
-		addIgnoredField;
-		addIntegerField: #conversationPart: ;
-		addIgnoredFields: 5;
-		addField: #date: converter: [ :aString | aString asDateAndTime ];
-		addField: #author: ;
-		addField: #message: ;
-		addField: #url:;
-		upToEnd
+	^ ChAnalyzedMessagesImporter new readString: self csvThreeAnalyzedMessages
 ]
 
 { #category : #messages }
