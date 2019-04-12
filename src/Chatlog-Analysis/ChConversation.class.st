@@ -77,3 +77,13 @@ ChConversation >> initiation: anObject [
 ChConversation >> numberOfDiscussions [
 	^ self discussions ifNotNil: #size ifNil: 0
 ]
+
+{ #category : #printing }
+ChConversation >> printOn: aStream [
+	aStream nextPutAll: 'Conversation with '.	
+	self initiation ifNotNil: [ aStream nextPutAll: 'an initial question, ' ].
+	self discussions ifNotNil: [ aStream 
+		print: self numberOfDiscussions;
+		nextPutAll: ' discussions, '  ].
+	self ending ifNotNil: [ aStream nextPutAll: ' and an ending' ].
+]
