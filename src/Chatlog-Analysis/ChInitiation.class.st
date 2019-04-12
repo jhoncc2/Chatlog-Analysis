@@ -8,6 +8,16 @@ Class {
 	#category : #'Chatlog-Analysis-Model'
 }
 
+{ #category : #'gt-extension' }
+ChInitiation >> chChildrenToDisplay [
+	| aCollection |
+	aCollection := OrderedCollection new: 2.
+	self question ifNotNil: [ aCollection add: self question ].
+	self clarification ifNotNil: [ aCollection add: self clarification ].
+	^ aCollection
+	
+]
+
 { #category : #accessing }
 ChInitiation >> clarification [
 	^ clarification

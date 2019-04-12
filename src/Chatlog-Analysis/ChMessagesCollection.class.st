@@ -12,10 +12,16 @@ ChMessagesCollection >> addMessage: aDSMessage [
 	self messages addLast: aDSMessage
 ]
 
+{ #category : #'gt-extension' }
+ChMessagesCollection >> chChildrenToDisplay [
+	self messages ifNotNil: [ ^ self messages ].
+	^ Array empty
+]
+
 { #category : #initialization }
 ChMessagesCollection >> initialize [
 	super initialize.
-	messages := OrderedCollection new: 1.
+	messages := DSMessages new: 1.
 ]
 
 { #category : #accessing }

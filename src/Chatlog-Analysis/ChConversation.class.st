@@ -14,6 +14,17 @@ ChConversation >> addDiscussion: aChDiscussion [
 	self discussions addLast: aChDiscussion
 ]
 
+{ #category : #'gt-extension' }
+ChConversation >> chChildrenToDisplay [
+	| aCollection |
+	aCollection := OrderedCollection new: 3.
+	self initiation ifNotNil: [ aCollection add: self initiation ].
+	self discussions ifNotNil: [ aCollection add: self discussions ].
+	self ending ifNotNil: [ aCollection add: self ending ].
+	^ aCollection
+	
+]
+
 { #category : #accessing }
 ChConversation >> discussions [
 	^ discussions
@@ -34,10 +45,20 @@ ChConversation >> ending: anObject [
 	ending := anObject
 ]
 
+{ #category : #'gt-extension' }
+ChConversation >> gtInspectorConversationIn: composite [
+	<gtInspectorPresentationOrder: 1>
+	^ composite fastTree 
+		title: 'Conversation' translated;
+		display: [ { self } ];
+		children: [ :item | item chChildrenToDisplay ];
+		expandedUntil: 1
+]
+
 { #category : #initialization }
 ChConversation >> initialize [
 	super initialize.
-	discussions := OrderedCollection new: 1.
+	discussions := ChCollection new: 1.
 	ending := nil.
 	initiation := nil.
 ]
