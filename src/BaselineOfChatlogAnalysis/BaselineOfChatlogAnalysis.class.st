@@ -12,7 +12,7 @@ BaselineOfChatlogAnalysis >> baseline: spec [
 			baseline: 'DiscordSt' with: [
 				spec repository: 'github://JurajKubelka/DiscordSt/src' ];
 			baseline: 'NeoCSV' with: [
-				spec repository: 'github://sven/NeoCSV/repository' ].
+				spec repository: 'github://svenvc/NeoCSV/repository' ].
 		spec package: 'Chatlog-Analysis' with: [ 
 			spec requires: #( 'DiscordSt' 'NeoCSV' ) ].
 	]
