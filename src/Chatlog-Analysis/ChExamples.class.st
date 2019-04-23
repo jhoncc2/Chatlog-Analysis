@@ -9,8 +9,20 @@ ChExamples >> conversationCategorizedMessages [
 	<gtExample>
 	| dsMessages cvsMessages cvsConversations |
 	
-	dsMessages := self dsMessages.
+	dsMessages := self dsMessages reverse.
 	cvsMessages := self cvsMessages.
+	"join messages"
+	cvsMessages := cvsMessages with: (dsMessages copyFrom: 1 to: cvsMessages size) collect: [ :a :b | a discordMessage: b ].
+	"sanitize"
+	cvsMessages reject: [ :a | 
+			|s|
+
+			s := (($# split: a author) second = a discordMessage author discriminator
+				"and: [(a message copyFrom: 1 to: 3)
+						= (a discordMessage content copyFrom: 1 to: 3) ]").
+				s ifFalse: [ Exception signal ].
+				s
+		].
 	
 	cvsConversations := cvsMessages groupedBy: [ :e | e conversationId ].
 	cvsConversations := cvsConversations associations reject: [ :e | e key = 0 ].
@@ -61,7 +73,9 @@ ChExamples >> csvThreeAnalyzedMessages [
 { #category : #'categorized-conv' }
 ChExamples >> cvsMessages [
 	| fReference |
-	fReference := '/home/jhon/Downloads/ds-chatlogs/learning-help-chatlog.csv' asFileReference .
+	fReference := (FileSystem workingDirectory /
+	'pharo-local/iceberg/jhoncc2/Chatlog-Analysis/data/learning-help-chatlog.csv') asFileReference .
+
 	^ ChAnalyzedMessagesImporter new readFileReference: fReference
 ]
 
