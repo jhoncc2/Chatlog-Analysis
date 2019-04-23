@@ -10,9 +10,9 @@ Class {
 { #category : #initialization }
 ChAnalyzedMessagesImporter >> neoCSVReader [
 	^ NeoCSVReader new
-		recordClass: ChAnalizedMessage;
+		recordClass: ChAnalyzedMessage;
 		addIntegerField: #conversationId: ;
-		addIgnoredField;
+		addIntegerField: #subConversationId: ;
 		addIntegerField: #conversationPart: ;
 		addIgnoredFields: 5;
 		addField: #date: converter: [ :aString | aString asDateAndTime ];
@@ -22,8 +22,8 @@ ChAnalyzedMessagesImporter >> neoCSVReader [
 ]
 
 { #category : #actions }
-ChAnalyzedMessagesImporter >> readFileReference: aFileReference [
-	^ aFileReference asFileReference readStreamDo: [ :aStream | 
+ChAnalyzedMessagesImporter >> readFileReference: aString [
+	^ aString readStreamDo: [ :aStream | 
 		self readStream: aStream ]
 ]
 

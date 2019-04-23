@@ -3,3 +3,8 @@ Class {
 	#superclass : #ChMessagesCollection,
 	#category : #'Chatlog-Analysis-Model'
 }
+
+{ #category : #'instance creation' }
+ChAnswer class >> conversationPartSymbol [
+	^ #isAnswer
+]

@@ -1,13 +1,17 @@
 Class {
 	#name : #ChConversation,
-	#superclass : #Object,
+	#superclass : #ChModel,
 	#instVars : [
 		'initiation',
-		'discussions',
-		'ending'
+		'discussions'
 	],
 	#category : #'Chatlog-Analysis-Model'
 }
+
+{ #category : #'instance creation' }
+ChConversation class >> conversationPartSymbol [
+	^ #isConversation
+]
 
 { #category : #convenient }
 ChConversation >> addDiscussion: aChDiscussion [
@@ -20,7 +24,6 @@ ChConversation >> chChildrenToDisplay [
 	aCollection := OrderedCollection new: 3.
 	self initiation ifNotNil: [ aCollection add: self initiation ].
 	self discussions ifNotNil: [ aCollection add: self discussions ].
-	self ending ifNotNil: [ aCollection add: self ending ].
 	^ aCollection
 	
 ]
@@ -36,13 +39,14 @@ ChConversation >> discussions: anObject [
 ]
 
 { #category : #accessing }
-ChConversation >> ending [
-	^ ending
-]
-
-{ #category : #accessing }
-ChConversation >> ending: anObject [
-	ending := anObject
+ChConversation >> fromAnalyzedMessages: analyzedMessages [
+	| dscs |
+	self initiation: (ChInitiation fromAnalyzedMessages: analyzedMessages).
+	dscs := analyzedMessages groupedBy: [ :e | e subConversationId ].
+	self discussions addAll: (dscs associations collect: [ :e | ChDiscussion fromAnalyzedMessages: e value]).
+	
+	"sanitize"
+	self discussions: (self discussions reject: #isNil)
 ]
 
 { #category : #'gt-extension' }
@@ -59,7 +63,6 @@ ChConversation >> gtInspectorConversationIn: composite [
 ChConversation >> initialize [
 	super initialize.
 	discussions := ChCollection new: 1.
-	ending := nil.
 	initiation := nil.
 ]
 
@@ -85,5 +88,5 @@ ChConversation >> printOn: aStream [
 	self discussions ifNotNil: [ aStream 
 		print: self numberOfDiscussions;
 		nextPutAll: ' discussions, '  ].
-	self ending ifNotNil: [ aStream nextPutAll: ' and an ending' ].
+	
 ]

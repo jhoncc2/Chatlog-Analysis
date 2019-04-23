@@ -1,6 +1,6 @@
 Class {
 	#name : #ChMessagesCollection,
-	#superclass : #Object,
+	#superclass : #ChModel,
 	#instVars : [
 		'messages'
 	],
@@ -16,6 +16,12 @@ ChMessagesCollection >> addMessage: aDSMessage [
 ChMessagesCollection >> chChildrenToDisplay [
 	self messages ifNotNil: [ ^ self messages ].
 	^ Array empty
+]
+
+{ #category : #accessing }
+ChMessagesCollection >> fromAnalyzedMessages: analyzedMessages [
+	super fromAnalyzedMessages: analyzedMessages.
+	self messages: analyzedMessages
 ]
 
 { #category : #initialization }

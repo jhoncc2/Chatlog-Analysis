@@ -1,11 +1,13 @@
 Class {
 	#name : #ChEnding,
-	#superclass : #Object,
-	#instVars : [
-		'messages'
-	],
+	#superclass : #ChMessagesCollection,
 	#category : #'Chatlog-Analysis-Model'
 }
+
+{ #category : #'instance creation' }
+ChEnding class >> conversationPartSymbol [
+	^ #isEnding
+]
 
 { #category : #adding }
 ChEnding >> addMessage: aDSMessage [
@@ -22,16 +24,6 @@ ChEnding >> chChildrenToDisplay [
 ChEnding >> initialize [
 	super initialize.
 	messages := ChCollection new: 1.
-]
-
-{ #category : #accessing }
-ChEnding >> messages [
-	^ messages
-]
-
-{ #category : #accessing }
-ChEnding >> messages: anObject [
-	messages := anObject
 ]
 
 { #category : #convenience }

@@ -1,13 +1,30 @@
 Class {
 	#name : #ChExamples,
-	#superclass : #Object,
+	#superclass : #TestCase,
 	#category : #'Chatlog-Analysis-Model'
 }
+
+{ #category : #'categorized-conv' }
+ChExamples >> conversationCategorizedMessages [
+	<gtExample>
+	| dsMessages cvsMessages cvsConversations |
+	
+	dsMessages := self dsMessages.
+	cvsMessages := self cvsMessages.
+	
+	cvsConversations := cvsMessages groupedBy: [ :e | e conversationId ].
+	cvsConversations := cvsConversations associations reject: [ :e | e key = 0 ].
+	
+	^ cvsConversations collect: [ :e | 
+		ChConversation new fromAnalyzedMessages: e value ].
+	
+]
 
 { #category : #conversation }
 ChExamples >> conversationWithThreeMessages [
 	<gtExample>
 	| aConversation anInitiation aDiscussion anEnding aMessages aQuestion anAnswer |
+	
 	aMessages := self threeMessages.
 	aConversation := self emptyConversation.
 	anInitiation := self emptyInitiation.
@@ -20,13 +37,14 @@ ChExamples >> conversationWithThreeMessages [
 	anAnswer addMessage: aMessages second.
 	aDiscussion answer: anAnswer.
 	anEnding addMessage: aMessages third.
+	aDiscussion ending: anEnding.
 	aConversation initiation: anInitiation.
 	aConversation addDiscussion: aDiscussion.
-	aConversation ending: anEnding.
+
 	self assert: aConversation initiation equals: anInitiation.
 	self assert: aConversation numberOfDiscussions equals: 1.
 	self assert: aConversation discussions first equals: aDiscussion.
-	self assert: aConversation ending equals: anEnding.
+	self assert: aDiscussion ending equals: anEnding.
 	^ aConversation
 ]
 
@@ -38,6 +56,18 @@ ChExamples >> csvThreeAnalyzedMessages [
 162164,0,2,,s,,ms,,14-May-17 08:07,Latsabben#8293,"@oleks#8268 1) #copyFrom:to:  `#(x y z ) copyFrom: 2 to: 3 """"#(#y #z)""""` 2) only ByteArray and the likes",,
 162164,0,5,,,,,,14-May-17 09:09,oleks#8268,"Thank you, @Latsabben#8293",,
 '
+]
+
+{ #category : #'categorized-conv' }
+ChExamples >> cvsMessages [
+	| fReference |
+	fReference := '/home/jhon/Downloads/ds-chatlogs/learning-help-chatlog.csv' asFileReference .
+	^ ChAnalyzedMessagesImporter new readFileReference: fReference
+]
+
+{ #category : #'categorized-conv' }
+ChExamples >> dsMessages [
+	^ DSFetcher fetchDSmessages.
 ]
 
 { #category : #conversation }
@@ -59,7 +89,6 @@ ChExamples >> emptyConversation [
 	self assert: aConversation discussions isNotNil.
 	self assert: aConversation discussions isEmpty.
 	self assert: aConversation numberOfDiscussions equals: 0.
-	self assert: aConversation ending isNil.
 	^ aConversation
 ]
 

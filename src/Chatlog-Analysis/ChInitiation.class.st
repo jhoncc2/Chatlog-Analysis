@@ -1,12 +1,17 @@
 Class {
 	#name : #ChInitiation,
-	#superclass : #Object,
+	#superclass : #ChModel,
 	#instVars : [
 		'question',
 		'clarification'
 	],
 	#category : #'Chatlog-Analysis-Model'
 }
+
+{ #category : #'instance creation' }
+ChInitiation class >> conversationPartSymbol [
+	^ #isInitiation
+]
 
 { #category : #'gt-extension' }
 ChInitiation >> chChildrenToDisplay [
@@ -26,6 +31,13 @@ ChInitiation >> clarification [
 { #category : #accessing }
 ChInitiation >> clarification: anObject [
 	clarification := anObject
+]
+
+{ #category : #accessing }
+ChInitiation >> fromAnalyzedMessages: analyzedMessages [
+	super fromAnalyzedMessages: analyzedMessages.
+	self question: (ChQuestion fromAnalyzedMessages: analyzedMessages ).
+	self clarification: (ChQuestionClarification fromAnalyzedMessages: analyzedMessages) 
 ]
 
 { #category : #accessing }
