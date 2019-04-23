@@ -37,7 +37,11 @@ ChInitiation >> clarification: anObject [
 ChInitiation >> fromAnalyzedMessages: analyzedMessages [
 	super fromAnalyzedMessages: analyzedMessages.
 	self question: (ChQuestion fromAnalyzedMessages: analyzedMessages ).
-	self clarification: (ChQuestionClarification fromAnalyzedMessages: analyzedMessages) 
+	self clarification: (ChQuestionClarification fromAnalyzedMessages: analyzedMessages) .
+	
+	self question ifNil: [ self halt. ].
+	
+
 ]
 
 { #category : #accessing }

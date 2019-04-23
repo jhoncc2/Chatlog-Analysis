@@ -96,7 +96,7 @@ ChAnalyzedMessage >> isInitiation [
 
 { #category : #'accesing-classification' }
 ChAnalyzedMessage >> isQuestion [
-	^ {1} anySatisfy: [ :e | self conversationPart == e ]
+	^ ({1. 123} anySatisfy: [ :e | self conversationPart = e ]) or: [ self conversationPart asString includes: $4 ]
 	
 ]
 
