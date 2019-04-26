@@ -143,6 +143,14 @@ ChAnalyzedMessage >> message: anObject [
 ]
 
 { #category : #accessing }
+ChAnalyzedMessage >> printOn: aStream [
+	self author ifNil: [ ^ super printOn: aStream ].
+	aStream 
+		nextPutAll: 'Analyzed Message of ';
+		nextPutAll: self author asString.
+]
+
+{ #category : #accessing }
 ChAnalyzedMessage >> subConversationId [
 	subConversationId ifNil: [ ^ 0 ].
 	^ subConversationId 

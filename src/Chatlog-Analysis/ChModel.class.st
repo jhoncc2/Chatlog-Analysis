@@ -12,8 +12,8 @@ ChModel class >> conversationPartSymbol [
 { #category : #'instance creation' }
 ChModel class >> fromAnalyzedMessages: analyzedMsgs [
 	| filtered |
-	analyzedMsgs ifEmpty: [ ^ nil ].
 	analyzedMsgs ifNil: [ ^ nil ].
+	analyzedMsgs ifEmpty: [ ^ nil ].
 	
 	filtered := (analyzedMsgs asOrderedCollection select: self conversationPartSymbol).
 	

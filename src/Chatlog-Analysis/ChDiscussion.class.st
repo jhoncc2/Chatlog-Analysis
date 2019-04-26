@@ -59,7 +59,8 @@ ChDiscussion >> ending: anObject [
 ChDiscussion >> fromAnalyzedMessages: analyzedMessages [
 	super fromAnalyzedMessages: analyzedMessages.
 	self answer: (ChAnswer fromAnalyzedMessages: analyzedMessages ).
-	self clarification: (ChAnswerClarification fromAnalyzedMessages: analyzedMessages) 
+	self clarification: (ChAnswerClarification fromAnalyzedMessages: analyzedMessages).
+	self ending: (ChEnding fromAnalyzedMessages: analyzedMessages).
 ]
 
 { #category : #accessing }
