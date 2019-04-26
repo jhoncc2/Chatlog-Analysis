@@ -24,6 +24,14 @@ ChMessagesCollection >> fromAnalyzedMessages: analyzedMessages [
 	self messages: analyzedMessages
 ]
 
+{ #category : #accessing }
+ChMessagesCollection >> gtLiveFor: aView [
+	<gtView>
+	(self messages isNil or: [ self messages isEmpty ])
+		ifTrue: [ ^ aView empty ].
+	^ self messages gtLiveFor: aView
+]
+
 { #category : #initialization }
 ChMessagesCollection >> initialize [
 	super initialize.

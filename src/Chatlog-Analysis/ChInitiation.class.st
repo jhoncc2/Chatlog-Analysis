@@ -45,6 +45,13 @@ ChInitiation >> fromAnalyzedMessages: analyzedMessages [
 ]
 
 { #category : #accessing }
+ChInitiation >> gtLiveFor: aView [
+	<gtView>
+	self question ifNil: [ ^ aView empty ].
+	^ self question gtLiveFor: aView
+]
+
+{ #category : #accessing }
 ChInitiation >> printOn: aStream [
 	aStream nextPutAll: 'Initiation with '.	
 	self question ifNotNil: [ aStream nextPutAll: 'a question, ' ].
