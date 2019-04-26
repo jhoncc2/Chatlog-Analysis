@@ -4,7 +4,7 @@ Class {
 	#instVars : [
 		'messages'
 	],
-	#category : #'Chatlog-Analysis-Model'
+	#category : #'Chatlog-Analysis-Utils'
 }
 
 { #category : #initialization }
@@ -29,9 +29,9 @@ ChAnalyzedMessagesImporter >> readFileReference: aString [
 
 { #category : #actions }
 ChAnalyzedMessagesImporter >> readStream: aStream [
-	^ (self neoCSVReader on: aStream) 
+	^ ((self neoCSVReader on: aStream) 
 		skipHeader;
-		upToEnd
+		upToEnd) as: DSMessages
 ]
 
 { #category : #actions }

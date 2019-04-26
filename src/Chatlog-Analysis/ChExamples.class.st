@@ -1,36 +1,17 @@
 Class {
 	#name : #ChExamples,
 	#superclass : #Object,
-	#category : #'Chatlog-Analysis-Model'
+	#category : #'Chatlog-Analysis-Examples'
 }
 
 { #category : #'categorized-conv' }
 ChExamples >> conversationCategorizedMessages [
 	<gtExample>
-	| discordMessages csvMessages cvsConversations |
-	
-	discordMessages := self threeMessages.
-	csvMessages := self threeAnalyzedMessages.
-	
-	"join messages"
-	csvMessages := csvMessages with: (discordMessages copyFrom: 1 to: csvMessages size) collect: [ :a :b | a discordMessage: b ].
-	"sanitize"
-	csvMessages do: [ :a | 
-			|s|
-
-			s := (($# split: a author) second = a discordMessage author discriminator
-				"and: [(a message copyFrom: 1 to: 3)
-						= (a discordMessage content copyFrom: 1 to: 3) ]").
-				s ifFalse: [ Exception signal ].
-				s
-		].
-	
-	cvsConversations := csvMessages groupedBy: [ :e | e conversationId ].
-	cvsConversations := cvsConversations associations reject: [ :e | e key = 0 ].
-	
-	^ cvsConversations collect: [ :e | 
-		ChConversation new fromAnalyzedMessages: e value ] as: ChConversations.
-	
+	^ ChMerger new 
+		discordMessages: self threeMessages;
+		analyzedMessages: self threeAnalyzedMessages;
+		merge;
+		defineConversation
 ]
 
 { #category : #conversation }

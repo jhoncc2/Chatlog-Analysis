@@ -25,8 +25,18 @@ ChAnalyzedMessage >> author: anObject [
 ]
 
 { #category : #accessing }
+ChAnalyzedMessage >> authorName [
+	^ self author
+]
+
+{ #category : #accessing }
 ChAnalyzedMessage >> chChildrenToDisplay [
 	^ Array empty
+]
+
+{ #category : #accessing }
+ChAnalyzedMessage >> content [
+	^ self discordMessage ifNotNil: #content ifNil: [ '' ]
 ]
 
 { #category : #accessing }
@@ -67,6 +77,11 @@ ChAnalyzedMessage >> discordMessage [
 { #category : #accessing }
 ChAnalyzedMessage >> discordMessage: anObject [
 	discordMessage := anObject
+]
+
+{ #category : #'accessing - discord message' }
+ChAnalyzedMessage >> embeds [
+	^ self discordMessage ifNotNil: #embeds ifNil: [ #() ]
 ]
 
 { #category : #accessing }
@@ -143,6 +158,21 @@ ChAnalyzedMessage >> message: anObject [
 ]
 
 { #category : #accessing }
+ChAnalyzedMessage >> numberOfAttachments [
+	^ self discordMessage ifNotNil: #numberOfAttachments ifNil: 0
+]
+
+{ #category : #accessing }
+ChAnalyzedMessage >> numberOfEmbeds [
+	^ self discordMessage ifNotNil: #numberOfEmbeds ifNil: 0
+]
+
+{ #category : #accessing }
+ChAnalyzedMessage >> printFullMessage [
+	^ self discordMessage ifNotNil: #printFullMessage ifNil: [ '' ]
+]
+
+{ #category : #accessing }
 ChAnalyzedMessage >> printOn: aStream [
 	self author ifNil: [ ^ super printOn: aStream ].
 	aStream 
@@ -162,6 +192,11 @@ ChAnalyzedMessage >> subConversationId: anObject [
 ]
 
 { #category : #accessing }
+ChAnalyzedMessage >> timestamp [
+	^ self date
+]
+
+{ #category : #accessing }
 ChAnalyzedMessage >> url [
 	^ url
 ]
@@ -169,4 +204,9 @@ ChAnalyzedMessage >> url [
 { #category : #accessing }
 ChAnalyzedMessage >> url: anObject [
 	url := anObject
+]
+
+{ #category : #accessing }
+ChAnalyzedMessage >> username [
+	^ self author
 ]

@@ -15,7 +15,7 @@ ChModel class >> fromAnalyzedMessages: analyzedMsgs [
 	analyzedMsgs ifNil: [ ^ nil ].
 	analyzedMsgs ifEmpty: [ ^ nil ].
 	
-	filtered := (analyzedMsgs asOrderedCollection select: self conversationPartSymbol).
+	filtered := analyzedMsgs select: self conversationPartSymbol.
 	
 	^ filtered isNotEmpty 
 		ifTrue: [self new fromAnalyzedMessages: filtered; yourself ]  
