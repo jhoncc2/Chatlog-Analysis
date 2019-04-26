@@ -8,3 +8,11 @@ Class {
 ChQuestion class >> conversationPartSymbol [
 	^ #isQuestion
 ]
+
+{ #category : #accessing }
+ChQuestion >> printOn: aStream [
+	aStream nextPutAll: 'Question of '.	
+	self messages ifNotEmpty: [ 
+		aStream nextPutAll: self messages first author asString ].
+	
+]

@@ -29,7 +29,7 @@ ChExamples >> conversationCategorizedMessages [
 	cvsConversations := cvsConversations associations reject: [ :e | e key = 0 ].
 	
 	^ cvsConversations collect: [ :e | 
-		ChConversation new fromAnalyzedMessages: e value ].
+		ChConversation new fromAnalyzedMessages: e value ] as: ChConversations.
 	
 ]
 

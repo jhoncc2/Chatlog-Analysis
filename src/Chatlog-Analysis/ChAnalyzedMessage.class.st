@@ -69,6 +69,27 @@ ChAnalyzedMessage >> discordMessage: anObject [
 	discordMessage := anObject
 ]
 
+{ #category : #accessing }
+ChAnalyzedMessage >> gtMessageAttachmentsFor: aView [ 
+	<gtView>
+	self discordMessage ifNil: [ ^ aView empty ].
+	^ self discordMessage gtAttachmentsFor: aView
+]
+
+{ #category : #accessing }
+ChAnalyzedMessage >> gtMessageContentFor: aView [ 
+	<gtView>
+	self discordMessage ifNil: [ ^ aView empty ].
+	^ self discordMessage gtContentFor: aView
+]
+
+{ #category : #accessing }
+ChAnalyzedMessage >> gtMessageImageFor: aView [ 
+	<gtView>
+	self discordMessage ifNil: [ ^ aView empty ].
+	^ self discordMessage gtImageFor: aView
+]
+
 { #category : #'accesing-classification' }
 ChAnalyzedMessage >> isAnswer [
 	^ {2} anySatisfy: [ :e | self conversationPart == e ]

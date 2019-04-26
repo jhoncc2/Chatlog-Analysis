@@ -70,3 +70,12 @@ ChDiscussion >> initialize [
 	ending := nil.
 	
 ]
+
+{ #category : #accessing }
+ChDiscussion >> printOn: aStream [
+	aStream nextPutAll: 'Discussion with '.	
+	self answer ifNotNil: [ aStream nextPutAll: 'an answer, ' ].
+	self clarification ifNotNil: [ aStream nextPutAll: 'a clarification, '].
+	self ending ifNotNil: [ aStream nextPutAll: ' and an ending'].
+	
+]

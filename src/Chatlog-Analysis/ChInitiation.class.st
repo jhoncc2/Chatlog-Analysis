@@ -45,6 +45,14 @@ ChInitiation >> fromAnalyzedMessages: analyzedMessages [
 ]
 
 { #category : #accessing }
+ChInitiation >> printOn: aStream [
+	aStream nextPutAll: 'Initiation with '.	
+	self question ifNotNil: [ aStream nextPutAll: 'a question, ' ].
+	self clarification ifNotNil: [ aStream nextPutAll: 'a clarification' ].
+	
+]
+
+{ #category : #accessing }
 ChInitiation >> question [
 	^ question
 ]

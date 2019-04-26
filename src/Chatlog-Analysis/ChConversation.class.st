@@ -71,7 +71,7 @@ ChConversation >> gtInspectorConversationIn: composite [
 { #category : #initialization }
 ChConversation >> initialize [
 	super initialize.
-	discussions := ChCollection new: 1.
+	discussions := ChDiscussions new: 1.
 	initiation := nil.
 ]
 
@@ -96,6 +96,6 @@ ChConversation >> printOn: aStream [
 	self initiation ifNotNil: [ aStream nextPutAll: 'an initial question, ' ].
 	self discussions ifNotNil: [ aStream 
 		print: self numberOfDiscussions;
-		nextPutAll: ' discussions, '  ].
+		nextPutAll: ' discussions '  ].
 	
 ]
