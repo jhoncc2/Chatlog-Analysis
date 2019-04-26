@@ -7,14 +7,15 @@ Class {
 { #category : #'categorized-conv' }
 ChExamples >> conversationCategorizedMessages [
 	<gtExample>
-	| dsMessages cvsMessages cvsConversations |
+	| discordMessages csvMessages cvsConversations |
 	
-	dsMessages := self dsMessages reverse.
-	cvsMessages := self cvsMessages.
+	discordMessages := self threeMessages.
+	csvMessages := self threeAnalyzedMessages.
+	
 	"join messages"
-	cvsMessages := cvsMessages with: (dsMessages copyFrom: 1 to: cvsMessages size) collect: [ :a :b | a discordMessage: b ].
+	csvMessages := csvMessages with: (discordMessages copyFrom: 1 to: csvMessages size) collect: [ :a :b | a discordMessage: b ].
 	"sanitize"
-	cvsMessages reject: [ :a | 
+	csvMessages do: [ :a | 
 			|s|
 
 			s := (($# split: a author) second = a discordMessage author discriminator
@@ -24,7 +25,7 @@ ChExamples >> conversationCategorizedMessages [
 				s
 		].
 	
-	cvsConversations := cvsMessages groupedBy: [ :e | e conversationId ].
+	cvsConversations := csvMessages groupedBy: [ :e | e conversationId ].
 	cvsConversations := cvsConversations associations reject: [ :e | e key = 0 ].
 	
 	^ cvsConversations collect: [ :e | 
@@ -163,6 +164,7 @@ ChExamples >> threeMessages [
 	<gtExample>
 	| aMessages |
 	aMessages := DSModelJsonMapping readMessages: self jsonThreeMessages.
+	aMessages sort: [ :a :b | a timestamp < b timestamp ].
 	self assert: aMessages size equals: 3.
 	^ aMessages
 ]

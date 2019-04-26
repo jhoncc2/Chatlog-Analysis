@@ -25,6 +25,11 @@ ChAnalyzedMessage >> author: anObject [
 ]
 
 { #category : #accessing }
+ChAnalyzedMessage >> chChildrenToDisplay [
+	^ Array empty
+]
+
+{ #category : #accessing }
 ChAnalyzedMessage >> conversationId [
 	^ conversationId
 ]

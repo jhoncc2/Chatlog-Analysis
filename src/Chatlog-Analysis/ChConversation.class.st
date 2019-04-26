@@ -49,6 +49,15 @@ ChConversation >> fromAnalyzedMessages: analyzedMessages [
 	self discussions: (self discussions reject: #isNil)
 ]
 
+{ #category : #accessing }
+ChConversation >> gtConversationFor: aView [
+	<gtView>
+	^ aView tree 
+		title: 'Conversation';
+		items: [ { self } ];
+		children: [ :item | item chChildrenToDisplay ]
+]
+
 { #category : #'gt-extension' }
 ChConversation >> gtInspectorConversationIn: composite [
 	<gtInspectorPresentationOrder: 1>
