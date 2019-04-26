@@ -1,6 +1,6 @@
 Class {
 	#name : #ChExamples,
-	#superclass : #TestCase,
+	#superclass : #Object,
 	#category : #'Chatlog-Analysis-Model'
 }
 
