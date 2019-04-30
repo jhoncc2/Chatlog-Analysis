@@ -47,8 +47,20 @@ ChInitiation >> fromAnalyzedMessages: analyzedMessages [
 { #category : #accessing }
 ChInitiation >> gtLiveFor: aView [
 	<gtView>
-	self question ifNil: [ ^ aView empty ].
-	^ self question gtLiveFor: aView
+	| theMessages |
+	theMessages := self messages.
+	(theMessages isNil or: [ theMessages isEmpty ])
+		ifTrue: [ ^ aView empty ].
+	^ theMessages gtLiveFor: aView
+]
+
+{ #category : #accessing }
+ChInitiation >> messages [
+	<return: #DSMessages>
+	^ DSMessages streamContents: [ :aStream | 
+		self question ifNotNil: [ :aQuestion | aStream nextPutAll: aQuestion messages ].
+		self clarification ifNotNil: [ :aClarification | aStream nextPutAll: aClarification messages ].
+	]
 ]
 
 { #category : #accessing }

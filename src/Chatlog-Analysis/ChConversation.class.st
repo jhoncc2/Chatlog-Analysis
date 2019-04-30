@@ -68,6 +68,16 @@ ChConversation >> gtInspectorConversationIn: composite [
 		expandedUntil: 1
 ]
 
+{ #category : #'gt-extension' }
+ChConversation >> gtLiveFor: aView [
+	<gtView>
+	| theMessages |
+	theMessages := self messages.
+	(theMessages isNil or: [ theMessages isEmpty ])
+		ifTrue: [ ^ aView empty ].
+	^ theMessages gtLiveFor: aView
+]
+
 { #category : #initialization }
 ChConversation >> initialize [
 	super initialize.
@@ -83,6 +93,15 @@ ChConversation >> initiation [
 { #category : #accessing }
 ChConversation >> initiation: anObject [
 	initiation := anObject
+]
+
+{ #category : #accessing }
+ChConversation >> messages [
+	<return: #DSMessages>
+	^ DSMessages streamContents: [ :aStream | 
+		self initiation ifNotNil: [ :anInitiation | aStream nextPutAll: anInitiation messages ].
+		self discussions ifNotNil: [ :theDiscussions | aStream nextPutAll: theDiscussions messages ].
+	]
 ]
 
 { #category : #convenient }

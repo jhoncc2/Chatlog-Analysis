@@ -4,7 +4,7 @@ Class {
 	#category : #'Chatlog-Analysis-Model'
 }
 
-{ #category : #accessing }
+{ #category : #'gt-extension' }
 ChConversations >> gtConversationsFor: aView [
 	<gtView>
 	^ aView tree 

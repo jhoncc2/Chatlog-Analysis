@@ -63,6 +63,16 @@ ChDiscussion >> fromAnalyzedMessages: analyzedMessages [
 	self ending: (ChEnding fromAnalyzedMessages: analyzedMessages).
 ]
 
+{ #category : #'gt-extension' }
+ChDiscussion >> gtLiveFor: aView [
+	<gtView>
+	| theMessages |
+	theMessages := self messages.
+	(theMessages isNil or: [ theMessages isEmpty ])
+		ifTrue: [ ^ aView empty ].
+	^ theMessages gtLiveFor: aView
+]
+
 { #category : #accessing }
 ChDiscussion >> initialize [
 	super initialize.
@@ -70,6 +80,16 @@ ChDiscussion >> initialize [
 	answer := nil.
 	ending := nil.
 	
+]
+
+{ #category : #accessing }
+ChDiscussion >> messages [
+	<return: #DSMessages>
+	^ DSMessages streamContents: [ :aStream | 
+		self answer ifNotNil: [ :anAnswer | aStream nextPutAll: anAnswer messages ].
+		self clarification ifNotNil: [ :aClarification | aStream nextPutAll: aClarification messages ].
+		self ending ifNotNil: [ :anEnding | aStream nextPutAll: anEnding messages ].
+	]
 ]
 
 { #category : #accessing }

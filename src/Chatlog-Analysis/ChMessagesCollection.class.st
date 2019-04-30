@@ -24,7 +24,7 @@ ChMessagesCollection >> fromAnalyzedMessages: analyzedMessages [
 	self messages: analyzedMessages
 ]
 
-{ #category : #accessing }
+{ #category : #'gt-extension' }
 ChMessagesCollection >> gtLiveFor: aView [
 	<gtView>
 	(self messages isNil or: [ self messages isEmpty ])

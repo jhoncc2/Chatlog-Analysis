@@ -84,6 +84,13 @@ ChAnalyzedMessage >> embeds [
 	^ self discordMessage ifNotNil: #embeds ifNil: [ #() ]
 ]
 
+{ #category : #'gt-extension' }
+ChAnalyzedMessage >> gtLiveFor: aView [ 
+	<gtView>
+	self discordMessage ifNil: [ ^ aView empty ].
+	^ self discordMessage gtLiveFor: aView
+]
+
 { #category : #accessing }
 ChAnalyzedMessage >> gtMessageAttachmentsFor: aView [ 
 	<gtView>
