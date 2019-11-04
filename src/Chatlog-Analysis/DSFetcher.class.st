@@ -86,7 +86,7 @@ DSFetcher >> fetchDataAndStoreInJson [
 
 { #category : #accessing }
 DSFetcher >> messages [ 
-	^ messages
+	^ messages ifNil:[ messages := DSMessages empty ]
 ]
 
 { #category : #configuration }
@@ -96,8 +96,10 @@ DSFetcher >> outputPath [
 
 { #category : #serialize }
 DSFetcher >> serializeJson [
+	"call serializeMessagesAsJson instead"
+	<Deprecated>
 	| path |
-	path := '/home/jhon/Workspace/chatlog-dataset/'.
+	path := '/Users/jhonc/Workspace/chatlog/jsonData'.
 	fileNames := self channels collect: [ :c | c , '.json' ].
 	fileNames doWithIndex: [ :e :i  | 
 		(path , e) asFileReference writeStreamDo: [ :stream |
@@ -113,6 +115,7 @@ DSFetcher >> serializeJson [
 
 { #category : #serialize }
 DSFetcher >> serializeJson: fileName last: numOfMessages messages: msgs [ 
+	<Deprecated>
 	| start list |
 	start := msgs size - numOfMessages.
 	list := msgs copyFrom: start to: msgs size.
@@ -129,11 +132,16 @@ DSFetcher >> serializeJson: fileName last: numOfMessages messages: msgs [
 ]
 
 { #category : #serialize }
-DSFetcher >> serializeJsonLast: numOfMessages [
-	| start |
-	start := messages size - numOfMessages.
-	start to: messages size do: [ :e |
-		
+DSFetcher >> serializeMessagesAsJson [
+	| path |
+	path := '/Users/jhonc/Workspace/chatlog/jsonData/'.
+	fileNames := self channels collect: [ :c | c , '.json' ].
+	fileNames doWithIndex: [ :e :i  | 
+		(path , e) asFileReference writeStreamDo: [ :stream |
+			|jsonString|
+			jsonString := DSModelJsonMapping write: self messages as: #CollectionOfMessages mappedTo: #collectionOfMessagesMappingFor: .
+			stream nextPutAll: jsonString
+		]
 	]
-	
+
 ]
